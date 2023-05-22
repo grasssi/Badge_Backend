@@ -41,10 +41,10 @@ app.use(flash());
 
 // require routes 
 const badgeApi = require('./routes/badgeAPI');
-
-
+const efccmApi = require('./routes/efccmAPI');
 
 app.use('/api/v1', badgeApi);
+app.use('/api/v1', efccmApi);
 
 
 

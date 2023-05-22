@@ -6,10 +6,11 @@ const Schema = mongoose.Schema;
 const efccmSchema = new Schema({
     //emt: { type: String, required: true },
     code_payes: { type: String, required: true },
-    emt: { type: String, required: false },
+    idf_emt: { type: String, required: false },
     toc: { type: String, required: false },
     vcontext: { type: String, required: false },
-    codage: { type: String},
+    code_efccm: { type: String},
+    code_toc: { type: String},
 
 }, {
     versionKey: false,

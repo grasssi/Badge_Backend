@@ -16,13 +16,13 @@ exports.allBadges = async (req, res) => {
 exports.addBadge = async (req, res) => {
     try {
         //hash password
-        console.log('coy',req.body.modele);
+        //console.log('coy',req.body.modele);
 
         const createdBadge = await Badge.create
         ({
-            emt:req.body.emt,
-            modele:req.body.modele,
-            code_fab:req.body.code_fab,
+            emt : req.body.emt,
+            modele : req.body.modele,
+            code_fab : req.body.code_fab,
             classe_equipement:req.body.classe_equipement,
             codage:req.body.code_fab + req.body.classe_equipement + '100000'
         })
