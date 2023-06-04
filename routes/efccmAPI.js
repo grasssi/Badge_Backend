@@ -3,19 +3,22 @@ const router = express.Router();
 // reuire Controller
 const efccmController = require('../controllers/efccmController')
 
-// get all user
+// get all efccms
 router.get('/alleffcms', efccmController.allEffcms)
 
-// add one user
+// add one efccm
 router.post('/addeffcm', efccmController.addEffcm)
 
-//getone user by id
-router.get('/geteffcm/:id', efccmController.getEffcm)
+//getone efccm by id
+router.get('/geteffcmbyid/:id', efccmController.getEffcmbyid)
 
-// update user by id
+//getone user by effcm
+router.post('/foundefccm', efccmController.foundEffcm)
+
+// update efccm by id
 router.put('/updateeffcm/:id', efccmController.updateEffcm)
 
-// delete user by id
+// delete efccm by id
 router.delete('/removeeffcm/:id', efccmController.removeEffcm)
 
 module.exports = router;

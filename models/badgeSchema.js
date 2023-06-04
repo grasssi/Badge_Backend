@@ -9,6 +9,8 @@ const badgeSchema = new Schema({
     code_fab: { type: String, required: false },
     classe_equipement: { type: String, required: false },
     codage: { type: String},
+    efccm:[{type:Schema.Types.ObjectId,ref:'efccm'}]
+
 
 }, {
     versionKey: false,
@@ -16,6 +18,6 @@ const badgeSchema = new Schema({
 });
 
 badgeSchema.plugin(uniqueValidator)
-const Badge = mongoose.model('badge', badgeSchema);
+const Badge = mongoose.model('badges', badgeSchema);
 
 module.exports = Badge;

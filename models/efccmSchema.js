@@ -11,6 +11,8 @@ const efccmSchema = new Schema({
     vcontext: { type: String, required: false },
     code_efccm: { type: String},
     code_toc: { type: String},
+    badge: { type: Schema.Types.ObjectId,ref:'badges' }
+
 
 }, {
     versionKey: false,
