@@ -4,7 +4,7 @@ const router = express.Router();
 const efccmController = require('../controllers/efccmController')
 
 // get all efccms
-router.get('/alleffcms', efccmController.allEffcms)
+router.get('/allefccms', efccmController.allEffcms)
 
 // add one efccm
 router.post('/addeffcm', efccmController.addEffcm)

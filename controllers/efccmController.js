@@ -5,8 +5,9 @@ const Badge = require('../models/badgeSchema');
 // get all users
 exports.allEffcms = async (req, res) => {
     try {
-        const users = await Effcm.find({});
+        const users = await Effcm.find({}).populate('badge');
         res.json(users);
+        console.log('res', users)
     }
     catch (err) {
         console.log(err);
@@ -21,16 +22,17 @@ exports.addEffcm = async (req, res) => {
         // console.log('coy',req.body.modele);
 
         const createdEffcm = await Effcm.create
+
             ({
                 code_payes: req.body.code_payes,
-                idf_emt: req.body.idt_emt,
+                idf_emt: req.body.idf_emt,
                 toc: req.body.toc,
                 vcontext: req.body.vcontext,
                 code_efccm: req.body.code_payes + req.body.idf_emt + req.body.vcontext + '2TOC 0       0       0       111115',
                 code_toc: req.body.code_payes + req.body.toc + req.body.idf_emt + req.body.vcontext + 'NON10O003400000NN0O 01320002202222200100                        1333100',
-            })
-        console.log('badge=', createdEffcm);
+                badge: req.body.badge
 
+            })
         const updatedBadge = await Badge.findByIdAndUpdate(req.body.badge, { $push: { efccm: createdEffcm._id } }, { new: true })
 
 
@@ -84,7 +86,6 @@ exports.getEffcmbyid = async (req, res) => {
 
 exports.foundEffcm = async (req, res) => {
     try {
-
         if (req.body.table == 'efccm') {
             const getEfccm = await Effcm.findOne({ code_efccm: { $regex: req.body.efccm } }).exec();
             if (getEfccm) {
@@ -100,8 +101,8 @@ exports.foundEffcm = async (req, res) => {
         } else if (req.body.table == 'TOC') {
 
             const toc = req.body.efccm.slice(0, -28);
-            console.log('oldtoc',req.body.efccm);
-            console.log('newtoc',toc);
+            console.log('oldtoc', req.body.efccm);
+            console.log('newtoc', toc);
             const getEfccm = await Effcm.findOne({ code_toc: { $regex: toc } }).exec();
             if (getEfccm) {
                 const getBadge = await Badge.findOne({ efccm: getEfccm._id }).exec();
@@ -113,8 +114,11 @@ exports.foundEffcm = async (req, res) => {
 
             }
         } else if (req.body.table == 'badge') {
-            const getEfccm = await Badge.findOne({ codage: { $regex: req.body.efccm } }).exec();
-            console.log(getEfccm);
+            const toc = req.body.efccm.substr(0, 10);
+            console.log('oldtoc', req.body.efccm);
+            console.log('newtoc', toc);
+            const getEfccm = await Badge.findOne({ code_efccm: { $regex: toc } }).exec();
+            //console.log('badges222', getEfccm);
             if (getEfccm) {
                 res.json(getEfccm);
 

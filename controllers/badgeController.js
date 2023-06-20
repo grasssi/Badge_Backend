@@ -72,4 +72,18 @@ exports.getBadge = async (req, res) => {
         console.log(err);
         res.status(500).json({ message: 'Internal server error' });
     }
+
+}
+//get one badge by emt
+exports.getBadgebyemt = async (req, res) => {
+    console.log('emt',req.params.emt)
+    try {
+        //hash password
+        const getUser = await Badge.find({ emt: req.params.emt })
+        res.json(getUser);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 }

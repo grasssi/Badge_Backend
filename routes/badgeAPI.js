@@ -12,6 +12,9 @@ router.post('/addbadge', badgeController.addBadge)
 //getone user by id
 router.get('/getbadge/:id', badgeController.getBadge)
 
+//getone badge by emy
+router.get('/getbadgebyemt/:emt', badgeController.getBadgebyemt)
+
 // update user by id
 router.put('/updatebadge/:id', badgeController.updateBadge)
 
