@@ -29,7 +29,7 @@ exports.addEffcm = async (req, res) => {
                 toc: req.body.toc,
                 vcontext: req.body.vcontext,
                 code_efccm: req.body.code_payes + req.body.idf_emt + req.body.vcontext + '2TOC 0       0       0       111115',
-                code_toc: req.body.code_payes + req.body.toc + req.body.idf_emt + req.body.vcontext + 'NON10O003400000NN0O 01320002202222200100                        1333100',
+                code_toc: req.body.code_payes + req.body.toc + req.body.idf_emt + req.body.vcontext + 'NON10O003400000NN0O 01320000000020200100                        1333100',
                 badge: req.body.badge
 
             })
@@ -86,8 +86,9 @@ exports.getEffcmbyid = async (req, res) => {
 
 exports.foundEffcm = async (req, res) => {
     try {
+
         if (req.body.table == 'efccm') {
-            const getEfccm = await Effcm.findOne({ code_efccm: { $regex: req.body.efccm } }).exec();
+            const getEfccm = await Effcm.findOne({ code_efccm: { $regex: req.body.efccm.substr(0, 15) } }).exec();
             if (getEfccm) {
                 const getBadge = await Badge.findOne({ efccm: getEfccm._id }).exec();
                 res.json(getBadge);
@@ -99,10 +100,11 @@ exports.foundEffcm = async (req, res) => {
             }
 
         } else if (req.body.table == 'TOC') {
-
-            const toc = req.body.efccm.slice(0, -28);
-            console.log('oldtoc', req.body.efccm);
-            console.log('newtoc', toc);
+            // console.log("efccm", req.body.efccm);
+            // console.log("toc", req.body.table);
+            const toc = req.body.efccm.substr(0, 35);
+            // console.log('oldtoc', req.body.efccm);
+            // console.log('newtoc', toc);
             const getEfccm = await Effcm.findOne({ code_toc: { $regex: toc } }).exec();
             if (getEfccm) {
                 const getBadge = await Badge.findOne({ efccm: getEfccm._id }).exec();

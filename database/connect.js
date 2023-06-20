@@ -4,7 +4,7 @@ const options = {
     useUnifiedTopology: true,
 
 };
-mongoose.connect('mongodb://localhost:27017/Badge_DataBase', options).then(connect => {
+mongoose.connect('mongodb://127.0.0.1:27017/Badge_DataBase', options).then(connect => {
 // mongoose.connect('mongodb://mongoadmin:mongoadmin@mongo:27017/mean-docker', options).then(connect => {
 
     console.log("=> connect to databse successfully!")
