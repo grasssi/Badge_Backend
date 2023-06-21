@@ -100,21 +100,26 @@ exports.foundEffcm = async (req, res) => {
             }
 
         } else if (req.body.table == 'TOC') {
+            const getBadge=[]
             // console.log("efccm", req.body.efccm);
             // console.log("toc", req.body.table);
             const toc = req.body.efccm.substr(0, 35);
             // console.log('oldtoc', req.body.efccm);
             // console.log('newtoc', toc);
-            const getEfccm = await Effcm.findOne({ code_toc: { $regex: toc } }).exec();
-            if (getEfccm) {
-                const getBadge = await Badge.findOne({ efccm: getEfccm._id }).exec();
-                res.json(getBadge);
+            const getEfccm = await Effcm.find({ code_toc: { $regex: toc } }).exec();
+            // console.log('taille',getEfccm.length);
+            for (let i = 0; i < getEfccm.length; i++) {
+                if (getEfccm) {
+                    getBadge[i] = await Badge.find({ efccm: getEfccm[i]._id }).exec();
+                    console.log('getbadge', getBadge);
+                }
+                else {
+                    getBadge[i] = 'not found';
 
+                }
             }
-            else {
-                res.json("not found");
+            res.json(getBadge);
 
-            }
         } else if (req.body.table == 'badge') {
             const toc = req.body.efccm.substr(0, 10);
             console.log('oldtoc', req.body.efccm);
@@ -123,7 +128,6 @@ exports.foundEffcm = async (req, res) => {
             //console.log('badges222', getEfccm);
             if (getEfccm) {
                 res.json(getEfccm);
-
             }
             else {
                 res.json("not found");
