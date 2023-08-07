@@ -42,9 +42,13 @@ app.use(flash());
 // require routes 
 const badgeApi = require('./routes/badgeAPI');
 const efccmApi = require('./routes/efccmAPI');
+const parkingApi = require('./routes/parkingAPI');
+
 
 app.use('/api/v1', badgeApi);
 app.use('/api/v1', efccmApi);
+app.use('/api/v1', parkingApi);
+
 
 
 
