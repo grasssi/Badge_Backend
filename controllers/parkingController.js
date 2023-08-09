@@ -42,9 +42,16 @@ exports.updateParking = async (req, res) => {
     try {
         //hash password
         //const hashedPwd = await bcrypt.hash(req.body.password, 10);
-        req.body.password = hashedPwd;
+        //req.body.password = hashedPwd;
+        //const updatedParking2 = await Parking.findById(req.params.id)
+       // console.log('updatedParking2',updatedParking2);
+        //res.json(updatedParking2);
+        //req.body('efccm').push(efccm)
+    //    updatedParking2.efccm.push(req.body)
+    //    console.log('test',req.body.efccm);
         const updatedParking = await Parking.findByIdAndUpdate(req.params.id, req.body)
         res.json(updatedParking);
+        //Parking.close();
     }
     catch (err) {
         console.log(err);

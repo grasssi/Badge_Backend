@@ -1,5 +1,6 @@
 const Effcm = require('../models/efccmSchema');
 const Badge = require('../models/badgeSchema');
+const Parking = require('../models/parkingSchema');
 
 
 // get all users
@@ -91,6 +92,11 @@ exports.foundEffcm = async (req, res) => {
             const getEfccm = await Effcm.findOne({ code_efccm: { $regex: req.body.efccm.substr(0, 15) } }).exec();
             if (getEfccm) {
                 const getBadge = await Badge.findOne({ efccm: getEfccm._id }).exec();
+                const getParking = await Parking.findOne({ parking: getEfccm.parking }).exec();
+                console.log('parking',getParking);
+                const updatedParking = await Parking.findByIdAndUpdate(req.body.parking, { $push: { efccm: getEfccm._id } }, { new: true })
+
+
                 res.json(getBadge);
 
             }

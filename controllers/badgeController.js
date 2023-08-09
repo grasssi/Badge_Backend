@@ -39,7 +39,7 @@ exports.updateBadge = async (req, res) => {
     try {
         //hash password
         //const hashedPwd = await bcrypt.hash(req.body.password, 10);
-        req.body.password=hashedPwd;
+       // req.body.password=hashedPwd;
         const updatedBadge = await Badge.findByIdAndUpdate(req.params.id,req.body)
         res.json(updatedBadge);
     }
