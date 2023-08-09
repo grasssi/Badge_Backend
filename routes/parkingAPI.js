@@ -6,6 +6,9 @@ const parkingController = require('../controllers/parkingController')
 // get all parkings
 router.get('/allparkings', parkingController.allParkings)
 
+// get all badges by parkings
+router.get('/allbadgesbyparking', parkingController.allBadges)
+
 // add one parking
 router.post('/addparking', parkingController.addParking)
 

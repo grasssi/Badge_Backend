@@ -93,7 +93,7 @@ exports.foundEffcm = async (req, res) => {
             if (getEfccm) {
                 const getBadge = await Badge.findOne({ efccm: getEfccm._id }).exec();
                 const getParking = await Parking.findOne({ parking: getEfccm.parking }).exec();
-                console.log('parking',getParking);
+                //console.log('parking',getParking);
                 const updatedParking = await Parking.findByIdAndUpdate(req.body.parking, { $push: { efccm: getEfccm._id } }, { new: true })
 
 
@@ -113,11 +113,15 @@ exports.foundEffcm = async (req, res) => {
             // console.log('oldtoc', req.body.efccm);
             // console.log('newtoc', toc);
             const getEfccm = await Effcm.find({ code_toc: { $regex: toc } }).exec();
+            const getParking = await Parking.findOne({ parking: getEfccm.parking }).exec();
             // console.log('taille',getEfccm.length);
             for (let i = 0; i < getEfccm.length; i++) {
                 if (getEfccm) {
                     getBadge[i] = await Badge.find({ efccm: getEfccm[i]._id }).exec();
-                    console.log('getbadge', getBadge);
+                   // console.log('getbadge', getBadge);
+                    //console.log('parking',getParking);
+                    const updatedParking = await Parking.findByIdAndUpdate(req.body.parking, { $push: { efccm: getEfccm[i]._id } }, { new: true })
+
                 }
                 else {
                     getBadge[i] = 'not found';

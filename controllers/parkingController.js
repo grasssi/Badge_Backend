@@ -15,6 +15,20 @@ exports.allParkings = async (req, res) => {
     }
 }
 
+
+exports.allBadges = async (req, res) => {
+    try {
+        const users = await Parking.find({}).populate('efccm').lean();
+        res.json(users);
+        console.log('res', users)
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+
 //add one user(not used)
 exports.addParking = async (req, res) => {
     try {
