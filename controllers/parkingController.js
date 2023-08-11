@@ -18,7 +18,7 @@ exports.allParkings = async (req, res) => {
 
 exports.allBadges = async (req, res) => {
     try {
-        const users = await Parking.find({}).populate('efccm').lean();
+        const users = await Parking.find({}).populate('efccm', 'badge');
         res.json(users);
         console.log('res', users)
     }
